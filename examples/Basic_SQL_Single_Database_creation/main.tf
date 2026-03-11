@@ -26,7 +26,7 @@ module "mod_mssql_single" {
 
   # To create a database users set `create_databases_users` to `true`
   create_databases_users = false
-  
+
   # Create a database.
   databases = [
     {

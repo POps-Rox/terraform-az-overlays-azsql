@@ -31,7 +31,7 @@ module "mod_sql_single" {
   administrator_login    = "adminsqltest"
   administrator_password = "P@ssw0rd1234"
 
-   # To create a database users set `create_databases_users` to `true`
+  # To create a database users set `create_databases_users` to `true`
   create_databases_users = false
 
   # Create a database.
@@ -45,17 +45,17 @@ module "mod_sql_single" {
   # Creating Private Endpoint requires, VNet name and address prefix to create a subnet
   # By default this will create a `privatelink.database.windows.net` DNS zone. 
   # To use existing private DNS zone specify `existing_private_dns_zone` with valid zone name
-  enable_private_endpoint       = true
-  virtual_network_name          = azurerm_virtual_network.sql-vnet.name
-  existing_private_subnet_name =  azurerm_subnet.sql-snet.name
+  enable_private_endpoint      = true
+  virtual_network_name         = azurerm_virtual_network.sql-vnet.name
+  existing_private_subnet_name = azurerm_subnet.sql-snet.name
 
   # (Optional) To enable Azure Monitoring for Azure SQL database including audit logs
   # Log Analytic workspace resource id required to enable Azure SQL database audit logs
   # enable_sql_server_extended_auditing is required for auditing, default value is false
   # log_retention_days is optional, default value is 30 days  
-  enable_log_monitoring      = true
+  enable_log_monitoring               = true
   enable_sql_server_extended_auditing = true
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.sql-log.id
+  log_analytics_workspace_id          = azurerm_log_analytics_workspace.sql-log.id
 
   # Tags for Azure Resources
   add_tags = {

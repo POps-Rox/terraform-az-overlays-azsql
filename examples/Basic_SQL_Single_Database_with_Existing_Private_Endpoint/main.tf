@@ -53,9 +53,9 @@ module "mod_sql_single" {
   # Log Analytic workspace resource id required to enable Azure SQL database audit logs
   # enable_sql_server_extended_auditing is required for auditing, default value is false
   # log_retention_days is optional, default value is 30 days  
-  enable_log_monitoring      = true
+  enable_log_monitoring               = true
   enable_sql_server_extended_auditing = true
-  log_analytics_workspace_id = azurerm_log_analytics_workspace.sql-log.id
+  log_analytics_workspace_id          = azurerm_log_analytics_workspace.sql-log.id
 
   # Tags for Azure Resources
   add_tags = {
