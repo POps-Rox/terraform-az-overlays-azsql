@@ -1,7 +1,7 @@
 
 module "mod_mssql_single" {
   source = "../.."
-  # source  = "azurenoops/overlays-azsql/azurerm"
+  # source  = "github.com/POps-Rox/tf-az-overlays-azsql"
   # version = "x.x.x"
 
   # By default, this module will create a resource group and 
