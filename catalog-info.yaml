@@ -1,0 +1,22 @@
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: tf-az-overlays-azsql
+  description: Terraform overlay module for Azure SQL Database
+  annotations:
+    github.com/project-slug: POps-Rox/tf-az-overlays-azsql
+    backstage.io/techdocs-ref: dir:.
+  tags:
+    - terraform
+    - terraform-module
+    - azure
+    - platform-ops
+  links:
+    - url: https://github.com/POps-Rox/tf-az-overlays-azsql
+      title: GitHub Repository
+      icon: github
+spec:
+  type: terraform-module
+  owner: platform-ops-team
+  lifecycle: production
+  system: pops-rox-platform
