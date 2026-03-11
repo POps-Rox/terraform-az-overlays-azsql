@@ -4,7 +4,7 @@
 # Single Database
 module "mod_sql_single" {
   depends_on = [
-    azurerm_virtual_network.vnet
+    azurerm_virtual_network.sql-vnet
   ]
   source = "../.."
   #source  = "azurenoops/overlays-azsql/azurerm"
