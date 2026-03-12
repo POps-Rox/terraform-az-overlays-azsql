@@ -5,7 +5,7 @@
 # Azure Region Lookup
 #----------------------------------------------------------
 module "mod_azure_region_lookup" {
-  source  = "github.com/POps-Rox/tf-az-overlays-azregionslookup"
+  source = "github.com/POps-Rox/tf-az-overlays-azregionslookup"
 
   azure_region = var.location
 }
@@ -19,7 +19,7 @@ data "azurerm_resource_group" "rgrp" {
 }
 
 module "mod_sql_rg" {
-  source  = "github.com/POps-Rox/tf-az-overlays-resourcegroup"
+  source = "github.com/POps-Rox/tf-az-overlays-resourcegroup"
 
   count = var.create_sql_resource_group ? 1 : 0
 
