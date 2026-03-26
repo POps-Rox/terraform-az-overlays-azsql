@@ -2,7 +2,7 @@
 # Licensed under the MIT License.
 
 terraform {
-  required_version = ">= 1.3"
+  required_version = ">= 1.9"
 
   required_providers {
     azurerm = {
