@@ -4,7 +4,7 @@
 resource "azurerm_mssql_database" "single_database" {
   for_each = try({ for db in var.databases : db.name => db if !var.enable_elastic_pool }, {})
 
-  name      = var.use_naming_for_databases ? data.azurenoopsutils_resource_name.sql_dbs[each.key].result : each.key
+  name      = var.use_naming_for_databases ? data.popsrox_resource_name.sql_dbs[each.key].result : each.key
   server_id = azurerm_mssql_server.primary_sql.id
 
   sku_name     = var.single_databases_sku_name
@@ -70,7 +70,7 @@ resource "azurerm_mssql_database" "single_database" {
 resource "azurerm_mssql_database" "elastic_pool_database" {
   for_each = try({ for db in var.databases : db.name => db if var.enable_elastic_pool }, {})
 
-  name      = var.use_naming_for_databases ? data.azurenoopsutils_resource_name.sql_dbs[each.key].result : each.key
+  name      = var.use_naming_for_databases ? data.popsrox_resource_name.sql_dbs[each.key].result : each.key
   server_id = azurerm_mssql_server.primary_sql.id
 
   sku_name        = "ElasticPool"

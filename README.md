@@ -8,13 +8,13 @@
 
 # Azure Sql Overlay Terraform Module
 
-[![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/azurenoops/overlays-container-registry/azurerm/)
+[![Changelog](https://img.shields.io/badge/changelog-release-green.svg)](CHANGELOG.md) [![MIT License](https://img.shields.io/badge/license-MIT-orange.svg)](LICENSE) [![TF Registry](https://img.shields.io/badge/terraform-registry-blue.svg)](https://registry.terraform.io/modules/POps-Rox/overlays-container-registry/azurerm/)
 
 This Overlay terraform module can create a an [Azure SQL Server](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-servers)
 and associated databases in an optional [SQL Elastic Pool](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-elastic-pool)
 with [DTU purchasing model](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-service-tiers-dtu) or [vCore purchasing model](https://docs.microsoft.com/en-us/azure/azure-sql/database/resource-limits-vcore-elastic-pools)
 only along with [Firewall rules](https://docs.microsoft.com/en-us/azure/sql-database/sql-database-firewall-configure)
-and manage related parameters (Private Endpoints, etc.) to be used in a [SCCA compliant Network](https://registry.terraform.io/modules/azurenoops/overlays-management-hub/azurerm/latest).
+and manage related parameters (Private Endpoints, etc.) to be used in a [SCCA compliant Network](https://registry.terraform.io/modules/POps-Rox/overlays-management-hub/azurerm/latest).
 
 ## SCCA Compliance
 
@@ -93,7 +93,7 @@ module "acr" {
 | Name                                                                                        | Version  |
 |---------------------------------------------------------------------------------------------|----------|
 | <a name="requirement_terraform"></a> [terraform](#requirement\_terraform)                   | >= 1.9   |
-| <a name="requirement_azurenoopsutils"></a> [azurenoopsutils](#requirement\_azurenoopsutils) | ~> 1.0   |
+| <a name="requirement_popsrox-utils"></a> [popsrox-utils](#requirement\_popsrox-utils) | ~> 1.0   |
 | <a name="requirement_azurerm"></a> [azurerm](#requirement\_azurerm)                         | ~> 3.116  |
 | <a name="requirement_mssql"></a> [mssql](#requirement\_mssql)                               | >= 0.2.5 |
 
@@ -101,7 +101,7 @@ module "acr" {
 
 | Name                                                                                  | Version |
 |---------------------------------------------------------------------------------------|---------|
-| <a name="provider_azurenoopsutils"></a> [azurenoopsutils](#provider\_azurenoopsutils) | ~> 1.0  |
+| <a name="provider_popsrox-utils"></a> [popsrox-utils](#provider\_popsrox-utils) | ~> 1.0  |
 | <a name="provider_azurerm"></a> [azurerm](#provider\_azurerm)                         | ~> 3.116 |
 | <a name="provider_random"></a> [random](#provider\_random)                            | n/a     |
 
@@ -111,8 +111,8 @@ module "acr" {
 |-----------------------------------------------------------------------------------------------------------------|----------------------------------------------|----------|
 | <a name="module_custom_users"></a> [custom\_users](#module\_custom\_users)                                      | ./modules/sql_db_users                       | n/a      |
 | <a name="module_databases_users"></a> [databases\_users](#module\_databases\_users)                             | ./modules/sql_db_users                       | n/a      |
-| <a name="module_mod_azure_region_lookup"></a> [mod\_azure\_region\_lookup](#module\_mod\_azure\_region\_lookup) | azurenoops/overlays-azregions-lookup/azurerm | ~> 1.0.0 |
-| <a name="module_mod_sql_rg"></a> [mod\_sql\_rg](#module\_mod\_sql\_rg)                                          | azurenoops/overlays-resource-group/azurerm   | ~> 1.0.1 |
+| <a name="module_mod_azure_region_lookup"></a> [mod\_azure\_region\_lookup](#module\_mod\_azure\_region\_lookup) | POps-Rox/overlays-azregions-lookup/azurerm | ~> 1.0.0 |
+| <a name="module_mod_sql_rg"></a> [mod\_sql\_rg](#module\_mod\_sql\_rg)                                          | POps-Rox/overlays-resource-group/azurerm   | ~> 1.0.1 |
 
 ## Resources
 
@@ -149,11 +149,11 @@ module "acr" {
 | [azurerm_subnet.snet_ep](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet)                                                                           | resource    |
 | [random_password.main](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password)                                                                            | resource    |
 | [random_string.str](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string)                                                                                 | resource    |
-| [azurenoopsutils_resource_name.primary_sql](https://registry.terraform.io/providers/azurenoops/azurenoopsutils/latest/docs/data-sources/resource_name)                                     | data source |
-| [azurenoopsutils_resource_name.secondary_sql](https://registry.terraform.io/providers/azurenoops/azurenoopsutils/latest/docs/data-sources/resource_name)                                   | data source |
-| [azurenoopsutils_resource_name.sql_dbs](https://registry.terraform.io/providers/azurenoops/azurenoopsutils/latest/docs/data-sources/resource_name)                                         | data source |
-| [azurenoopsutils_resource_name.sql_pool](https://registry.terraform.io/providers/azurenoops/azurenoopsutils/latest/docs/data-sources/resource_name)                                        | data source |
-| [azurenoopsutils_resource_name.sql_storage](https://registry.terraform.io/providers/azurenoops/azurenoopsutils/latest/docs/data-sources/resource_name)                                     | data source |
+| [popsrox_resource_name.primary_sql](https://registry.terraform.io/providers/POps-Rox/popsrox-utils/latest/docs/data-sources/resource_name)                                     | data source |
+| [popsrox_resource_name.secondary_sql](https://registry.terraform.io/providers/POps-Rox/popsrox-utils/latest/docs/data-sources/resource_name)                                   | data source |
+| [popsrox_resource_name.sql_dbs](https://registry.terraform.io/providers/POps-Rox/popsrox-utils/latest/docs/data-sources/resource_name)                                         | data source |
+| [popsrox_resource_name.sql_pool](https://registry.terraform.io/providers/POps-Rox/popsrox-utils/latest/docs/data-sources/resource_name)                                        | data source |
+| [popsrox_resource_name.sql_storage](https://registry.terraform.io/providers/POps-Rox/popsrox-utils/latest/docs/data-sources/resource_name)                                     | data source |
 | [azurerm_client_config.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config)                                                          | data source |
 | [azurerm_private_endpoint_connection.pip](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/private_endpoint_connection)                                  | data source |
 | [azurerm_resource_group.rgrp](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/resource_group)                                                           | data source |
