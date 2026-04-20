@@ -13,7 +13,7 @@ terraform {
       version = ">= 0.2.5"
     }
     popsrox-utils = {
-      source  = "POps-Rox/popsrox-utils"
+      source  = "POps-Rox/azutils"
       version = "~> 1.0.4"
     }
   }

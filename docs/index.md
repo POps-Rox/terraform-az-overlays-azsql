@@ -149,11 +149,11 @@ module "acr" {
 | [azurerm_subnet.snet_ep](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/subnet)                                                                           | resource    |
 | [random_password.main](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/password)                                                                            | resource    |
 | [random_string.str](https://registry.terraform.io/providers/hashicorp/random/latest/docs/resources/string)                                                                                 | resource    |
-| [popsrox_resource_name.primary_sql](https://registry.terraform.io/providers/POps-Rox/popsrox-utils/latest/docs/data-sources/resource_name)                                     | data source |
-| [popsrox_resource_name.secondary_sql](https://registry.terraform.io/providers/POps-Rox/popsrox-utils/latest/docs/data-sources/resource_name)                                   | data source |
-| [popsrox_resource_name.sql_dbs](https://registry.terraform.io/providers/POps-Rox/popsrox-utils/latest/docs/data-sources/resource_name)                                         | data source |
-| [popsrox_resource_name.sql_pool](https://registry.terraform.io/providers/POps-Rox/popsrox-utils/latest/docs/data-sources/resource_name)                                        | data source |
-| [popsrox_resource_name.sql_storage](https://registry.terraform.io/providers/POps-Rox/popsrox-utils/latest/docs/data-sources/resource_name)                                     | data source |
+| [popsrox_resource_name.primary_sql](https://registry.terraform.io/providers/POps-Rox/azutils/latest/docs/data-sources/resource_name)                                     | data source |
+| [popsrox_resource_name.secondary_sql](https://registry.terraform.io/providers/POps-Rox/azutils/latest/docs/data-sources/resource_name)                                   | data source |
+| [popsrox_resource_name.sql_dbs](https://registry.terraform.io/providers/POps-Rox/azutils/latest/docs/data-sources/resource_name)                                         | data source |
+| [popsrox_resource_name.sql_pool](https://registry.terraform.io/providers/POps-Rox/azutils/latest/docs/data-sources/resource_name)                                        | data source |
+| [popsrox_resource_name.sql_storage](https://registry.terraform.io/providers/POps-Rox/azutils/latest/docs/data-sources/resource_name)                                     | data source |
 | [azurerm_client_config.current](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/client_config)                                                          | data source |
 | [azurerm_private_endpoint_connection.pip](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/private_endpoint_connection)                                  | data source |
 | [azurerm_resource_group.rgrp](https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/data-sources/resource_group)                                                           | data source |
