@@ -1,7 +1,7 @@
 # Copyright (c) Microsoft Corporation.
 # Licensed under the MIT License.
 
-data "azurenoopsutils_resource_name" "primary_sql" {
+data "popsrox_resource_name" "primary_sql" {
   name          = var.workload_name
   resource_type = "azurerm_mssql_server"
   prefixes      = [var.org_name, module.mod_azure_region_lookup.location_short]
@@ -11,7 +11,7 @@ data "azurenoopsutils_resource_name" "primary_sql" {
   separator     = "-"
 }
 
-data "azurenoopsutils_resource_name" "secondary_sql" {
+data "popsrox_resource_name" "secondary_sql" {
   name          = var.workload_name
   resource_type = "azurerm_mssql_server"
   prefixes      = [var.org_name, module.mod_azure_region_lookup.location_short]
@@ -21,7 +21,7 @@ data "azurenoopsutils_resource_name" "secondary_sql" {
   separator     = "-"
 }
 
-data "azurenoopsutils_resource_name" "sql_pool" {
+data "popsrox_resource_name" "sql_pool" {
   name          = var.workload_name
   resource_type = "azurerm_mssql_elasticpool"
   prefixes      = [var.org_name, module.mod_azure_region_lookup.location_short]
@@ -31,7 +31,7 @@ data "azurenoopsutils_resource_name" "sql_pool" {
   separator     = "-"
 }
 
-data "azurenoopsutils_resource_name" "sql_dbs" {
+data "popsrox_resource_name" "sql_dbs" {
   for_each = try({ for database in var.databases : database.name => database }, {})
 
   name          = var.workload_name
@@ -43,7 +43,7 @@ data "azurenoopsutils_resource_name" "sql_dbs" {
   separator     = "-"
 }
 
-data "azurenoopsutils_resource_name" "sql_storage" {
+data "popsrox_resource_name" "sql_storage" {
   name          = var.workload_name
   resource_type = "azurerm_storage_account"
   prefixes      = [var.org_name, module.mod_azure_region_lookup.location_short]

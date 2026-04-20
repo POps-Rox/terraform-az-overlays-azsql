@@ -12,9 +12,9 @@ terraform {
       source  = "betr-io/mssql"
       version = ">= 0.2.5"
     }
-    azurenoopsutils = {
-      source  = "azurenoops/azurenoopsutils"
-      version = "~> 1.0.4"
+    popsrox = {
+      source  = "POps-Rox/azutils"
+      version = "~> 1.0"
     }
   }
 }
