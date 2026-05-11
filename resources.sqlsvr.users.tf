@@ -42,23 +42,7 @@ module "custom_users" {
 }
 
 #-----------------------------------------------------------------------------------------------
-# Adding AD Admin to SQL Server - Secondary server depend on Failover Group - Default is "false"
+# Adding AD Admin to SQL Server - now inlined as `azuread_administrator` block on
+# `azurerm_mssql_server.{primary,secondary}_sql` (azurerm 4.x removed the standalone
+# `azurerm_sql_active_directory_administrator` resource).
 #-----------------------------------------------------------------------------------------------
-
-resource "azurerm_sql_active_directory_administrator" "ad_user1" {
-  count               = var.ad_admin_login_name != null ? 1 : 0
-  server_name         = azurerm_mssql_server.primary_sql.name
-  resource_group_name = local.resource_group_name
-  login               = var.ad_admin_login_name
-  tenant_id           = data.azurerm_client_config.current.tenant_id
-  object_id           = data.azurerm_client_config.current.object_id
-}
-
-resource "azurerm_sql_active_directory_administrator" "ad_user2" {
-  count               = var.enable_failover_group && var.ad_admin_login_name != null ? 1 : 0
-  server_name         = azurerm_mssql_server.secondary_sql.0.name
-  resource_group_name = local.resource_group_name
-  login               = var.ad_admin_login_name
-  tenant_id           = data.azurerm_client_config.current.tenant_id
-  object_id           = data.azurerm_client_config.current.object_id
-}

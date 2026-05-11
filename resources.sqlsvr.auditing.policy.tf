@@ -16,16 +16,16 @@ resource "random_string" "str" {
 }
 
 resource "azurerm_storage_account" "storeacc" {
-  count                     = var.enable_sql_server_extended_auditing || var.enable_database_extended_auditing_policy || var.enable_sql_vulnerability_assessment || var.enable_log_monitoring == true ? 1 : 0
-  name                      = local.storage_account_name == null ? "stsqlauditlogs${element(concat(random_string.str.*.result, [""]), 0)}" : substr(local.storage_account_name, 0, 24)
-  resource_group_name       = local.resource_group_name
-  location                  = local.location
-  account_kind              = "StorageV2"
-  account_tier              = "Standard"
-  account_replication_type  = "GRS"
-  enable_https_traffic_only = true
-  min_tls_version           = "TLS1_2"
-  tags                      = merge({ "Name" = format("%s", "stsqlauditlogs") }, var.add_tags, )
+  count                      = var.enable_sql_server_extended_auditing || var.enable_database_extended_auditing_policy || var.enable_sql_vulnerability_assessment || var.enable_log_monitoring == true ? 1 : 0
+  name                       = local.storage_account_name == null ? "stsqlauditlogs${element(concat(random_string.str.*.result, [""]), 0)}" : substr(local.storage_account_name, 0, 24)
+  resource_group_name        = local.resource_group_name
+  location                   = local.location
+  account_kind               = "StorageV2"
+  account_tier               = "Standard"
+  account_replication_type   = "GRS"
+  https_traffic_only_enabled = true
+  min_tls_version            = "TLS1_2"
+  tags                       = merge({ "Name" = format("%s", "stsqlauditlogs") }, var.add_tags, )
 }
 
 resource "azurerm_storage_container" "storcont" {

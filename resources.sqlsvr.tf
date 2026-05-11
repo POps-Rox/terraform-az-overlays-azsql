@@ -34,6 +34,15 @@ resource "azurerm_mssql_server" "primary_sql" {
     }
   }
 
+  dynamic "azuread_administrator" {
+    for_each = var.ad_admin_login_name != null ? [1] : []
+    content {
+      login_username = var.ad_admin_login_name
+      object_id      = data.azurerm_client_config.current.object_id
+      tenant_id      = data.azurerm_client_config.current.tenant_id
+    }
+  }
+
   tags = merge(local.default_tags, var.add_tags, var.server_add_tags)
 }
 
@@ -60,6 +69,15 @@ resource "azurerm_mssql_server" "secondary_sql" {
     for_each = var.enable_identity == true ? [1] : [0]
     content {
       type = "SystemAssigned"
+    }
+  }
+
+  dynamic "azuread_administrator" {
+    for_each = var.ad_admin_login_name != null ? [1] : []
+    content {
+      login_username = var.ad_admin_login_name
+      object_id      = data.azurerm_client_config.current.object_id
+      tenant_id      = data.azurerm_client_config.current.tenant_id
     }
   }
 

@@ -118,7 +118,7 @@ output "identity" {
 
 output "sql_failover_group_id" {
   description = "A failover group of databases on a collection of Azure SQL servers."
-  value       = element(concat(azurerm_sql_failover_group.fog.*.id, [""]), 0)
+  value       = element(concat(azurerm_mssql_failover_group.fog.*.id, [""]), 0)
 }
 
 output "primary_sql_server_private_endpoint" {

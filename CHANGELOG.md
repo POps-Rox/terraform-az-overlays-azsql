@@ -1,5 +1,78 @@
 # Changelog
 
+## [2.0.0] - 2026-05-12
+
+### ⚠️ Breaking Changes
+
+- Upgraded `hashicorp/azurerm` provider from `~> 3.116` to `~> 4.20`.
+- Minimum Terraform CLI version raised from `>= 1.9` to `>= 1.10`.
+- Renamed `enable_https_traffic_only` → `https_traffic_only_enabled` on
+  the audit-log `azurerm_storage_account` (azurerm 4.x attribute rename).
+- Replaced removed-in-4.x `azurerm_sql_failover_group` with
+  `azurerm_mssql_failover_group`. Schema changes:
+  - `server_name` + `resource_group_name` → `server_id`
+  - `partner_servers { id }` → `partner_server { id }` (block renamed,
+    same shape; multiple blocks allowed for fan-out)
+  - `readonly_endpoint_failover_policy { mode = "Enabled" }` →
+    `readonly_endpoint_failover_policy_enabled = true` (block flattened
+    to scalar bool)
+  - `databases` now uses a list comprehension over the `for_each`-managed
+    `azurerm_mssql_database.single_database`, fixing the pre-existing
+    nested-list bug (`[…*.id]` → `[for db in … : db.id]`).
+  Module output `sql_failover_group_id` is preserved; its underlying
+  resource reference was updated.
+- Replaced removed-in-4.x standalone `azurerm_sql_active_directory_administrator`
+  resources (`ad_user1`, `ad_user2`) with inline `azuread_administrator`
+  blocks on `azurerm_mssql_server.primary_sql` and
+  `azurerm_mssql_server.secondary_sql`. Trigger is unchanged
+  (`var.ad_admin_login_name != null`). Login/tenant/object_id values are
+  sourced from the same inputs.
+
+### Migration Notes for Consumers
+
+- Bump your root `azurerm` provider constraint to `~> 4.20`.
+- Ensure Terraform CLI `>= 1.10`.
+- Set `ARM_SUBSCRIPTION_ID` env var or `subscription_id` in your
+  `provider "azurerm"` block — azurerm 4.x requires it.
+- **State migration** is required for existing deployments. The standalone
+  `azurerm_sql_active_directory_administrator` and `azurerm_sql_failover_group`
+  resources need to be removed from state (their replacements pick up the
+  same Azure objects on next apply). Suggested workflow:
+  ```bash
+  terraform state rm 'azurerm_sql_active_directory_administrator.ad_user1[0]'
+  terraform state rm 'azurerm_sql_active_directory_administrator.ad_user2[0]'
+  terraform state rm 'azurerm_sql_failover_group.fog[0]'
+  terraform import 'azurerm_mssql_failover_group.fog[0]' \
+    /subscriptions/.../failoverGroups/sqldb-failover-group
+  # azuread_administrator is now inline; terraform plan will detect drift
+  # and re-apply the AAD admin assignment in-place (no import needed).
+  ```
+- Module public input/output surface is unchanged. No variable renames or
+  removals.
+
+### Added
+
+- `azapi ~> 2.0` provider declaration in `versions.tf` (root + every example
+  + `modules/sql_db_users`).
+
+### Internal
+
+- Standardized `versions.tf` format across root, every example, and the
+  nested `sql_db_users` sub-module.
+- Bumped `required_version` to `>= 1.10` everywhere.
+- `examples/*/versions.tf` are now complete fleet `terraform { … }` blocks
+  (root-only examples previously declared only a `provider "azurerm" {}`).
+
+### Cross-module dependency
+
+This module sources two sibling overlays from GitHub
+(`tf-az-overlays-azregionslookup`, `tf-az-overlays-resourcegroup`) which are
+still pinned to `azurerm ~> 3.116`. Production consumers must wait for those
+overlays' Phase 1 PRs to merge before this `2.0.0` can be cleanly initialized.
+Local validation was performed by patching the cached `versions.tf` of those
+submodules during `terraform init -get=false`.
+
+
 ## [Unreleased](https://github.com/Azure/terraform-verified-module/tree/HEAD)
 
 **Merged pull requests:**
