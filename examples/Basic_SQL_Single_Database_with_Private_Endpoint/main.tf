@@ -8,7 +8,7 @@ module "mod_sql_single" {
     azurerm_virtual_network.sql-vnet
   ]
   source = "../.."
-  #source  = "github.com/POps-Rox/tf-az-overlays-azsql"
+  #source  = "github.com/POps-Rox/terraform-az-overlays-azsql"
   #version = "x.x.x"
 
   # By default, this module will create a resource group and 
