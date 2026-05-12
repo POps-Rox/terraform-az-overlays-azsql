@@ -2,7 +2,7 @@
 # Licensed under the MIT License.
 
 terraform {
-  required_version = ">= 1.3"
+  required_version = ">= 1.10"
 
   required_providers {
     random = {
@@ -12,6 +12,18 @@ terraform {
     mssql = {
       source  = "betr-io/mssql"
       version = ">= 0.2.5"
+    }
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "~> 4.20"
+    }
+    azapi = {
+      source  = "azure/azapi"
+      version = "~> 2.0"
+    }
+    popsrox = {
+      source  = "POps-Rox/azutils"
+      version = "~> 1.0"
     }
   }
 }

@@ -2,11 +2,11 @@
 # Licensed under the MIT License.
 
 terraform {
-  required_version = ">= 1.9"
+  required_version = ">= 1.10"
   required_providers {
     azurerm = {
       source  = "hashicorp/azurerm"
-      version = "~> 3.116"
+      version = "~> 4.20"
     }
     mssql = {
       source  = "betr-io/mssql"
@@ -15,6 +15,10 @@ terraform {
     popsrox = {
       source  = "POps-Rox/azutils"
       version = "~> 1.0"
+    }
+    azapi = {
+      source  = "azure/azapi"
+      version = "~> 2.0"
     }
   }
 }
