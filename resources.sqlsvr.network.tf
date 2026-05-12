@@ -9,6 +9,6 @@ resource "azurerm_mssql_virtual_network_rule" "vnet_rule_primary" {
 resource "azurerm_mssql_virtual_network_rule" "vnet_rule_secondary" {
   for_each  = try({ for subnet in local.allowed_subnets : subnet.name => subnet }, {})
   name      = each.key
-  server_id = azurerm_mssql_server.secondary_sql.0.id
+  server_id = azurerm_mssql_server.secondary_sql[0].id
   subnet_id = each.value.subnet_id
 }

@@ -35,12 +35,12 @@ output "primary_sql_server_fqdn" {
 
 output "secondary_sql_server_id" {
   description = "The secondary Microsoft SQL Server ID"
-  value       = element(concat(azurerm_mssql_server.secondary_sql.*.id, [""]), 0)
+  value       = element(concat(azurerm_mssql_server.secondary_sql[*].id, [""]), 0)
 }
 
 output "secondary_sql_server_fqdn" {
   description = "The fully qualified domain name of the secondary Azure SQL Server"
-  value       = element(concat(azurerm_mssql_server.secondary_sql.*.fully_qualified_domain_name, [""]), 0)
+  value       = element(concat(azurerm_mssql_server.secondary_sql[*].fully_qualified_domain_name, [""]), 0)
 }
 
 output "sql_elastic_pool" {
@@ -118,15 +118,15 @@ output "identity" {
 
 output "sql_failover_group_id" {
   description = "A failover group of databases on a collection of Azure SQL servers."
-  value       = element(concat(azurerm_mssql_failover_group.fog.*.id, [""]), 0)
+  value       = element(concat(azurerm_mssql_failover_group.fog[*].id, [""]), 0)
 }
 
 output "primary_sql_server_private_endpoint" {
   description = "id of the Primary SQL server Private Endpoint"
-  value       = element(concat(azurerm_private_endpoint.pep.*.id, [""]), 0)
+  value       = element(concat(azurerm_private_endpoint.pep[*].id, [""]), 0)
 }
 
 output "sql_server_private_dns_zone_domain" {
   description = "DNS zone name of SQL server Private endpoints dns name records"
-  value       = var.existing_private_dns_zone == null && var.enable_private_endpoint ? element(concat(azurerm_private_dns_zone.dns_zone.*.name, [""]), 0) : var.existing_private_dns_zone
+  value       = var.existing_private_dns_zone == null && var.enable_private_endpoint ? element(concat(azurerm_private_dns_zone.dns_zone[*].name, [""]), 0) : var.existing_private_dns_zone
 }

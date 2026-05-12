@@ -35,6 +35,7 @@ variable "deploy_environment" {
 }
 
 variable "random_password_length" {
+  type        = number
   description = "The desired length of random password created by this module"
   default     = 32
 }
@@ -66,21 +67,25 @@ variable "existing_resource_group_name" {
 #####################################
 
 variable "enable_private_endpoint" {
+  type        = bool
   description = "Manages a Private Endpoint to Azure SQL. Default is false."
   default     = false
 }
 
 variable "existing_private_dns_zone" {
+  type        = any
   description = "Name of the existing private DNS zone"
   default     = null
 }
 
 variable "existing_private_subnet_name" {
+  type        = any
   description = "Name of the existing private subnet for the private endpoint"
   default     = null
 }
 
 variable "virtual_network_name" {
+  type        = any
   description = "Name of the virtual network for the private endpoint"
   default     = null
 }
@@ -96,11 +101,13 @@ variable "server_version" {
 }
 
 variable "enable_failover_group" {
+  type        = bool
   description = "Create a failover group of databases on a collection of Azure SQL servers"
   default     = false
 }
 
 variable "enable_identity" {
+  type        = bool
   description = "If you want your SQL Server to have an managed identity. Defaults to false."
   default     = false
 }
@@ -203,6 +210,7 @@ variable "backup_retention" {
 }
 
 variable "ad_admin_login_name" {
+  type        = any
   description = "The login name of the principal to set as the server administrator"
   default     = null
 }
@@ -266,6 +274,7 @@ variable "elastic_pool_databases_max_capacity" {
 ################################
 
 variable "enable_firewall_rules" {
+  type        = bool
   description = "Manage an Azure SQL Firewall Rule"
   default     = false
 }
@@ -315,11 +324,13 @@ variable "connection_policy" {
 ##############################
 
 variable "enable_log_monitoring" {
+  type        = bool
   description = "Enable audit events to Azure Monitor?"
   default     = false
 }
 
 variable "log_analytics_workspace_id" {
+  type        = any
   description = "Specifies the ID of a Log Analytics Workspace where Diagnostics Data to be sent"
   default     = null
 }
@@ -397,6 +408,7 @@ variable "email_addresses_for_alerts" {
 }
 
 variable "enable_database_extended_auditing_policy" {
+  type        = bool
   description = "Manages Extended Audit policy for SQL database"
   default     = false
 }

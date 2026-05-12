@@ -1,7 +1,7 @@
 
 module "mod_mssql_single" {
   source = "../.."
-  # source  = "github.com/POps-Rox/terraform-az-overlays-azsql"
+  # source  = "github.com/POps-Rox/terraform-az-overlays-azsql?ref=v2.0.0"
   # version = "x.x.x"
 
   # By default, this module will create a resource group and 
