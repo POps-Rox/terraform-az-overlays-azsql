@@ -295,6 +295,7 @@ variable "allowed_subnets_ids" {
   default     = []
 }
 
+# tflint-ignore: terraform_unused_declarations
 variable "allowed_cidr_list" {
   description = "Allowed IP addresses to access the server in CIDR format. Default to all Azure services"
   type        = list(string)
@@ -341,6 +342,7 @@ variable "log_retention_days" {
   default     = 30
 }
 
+# tflint-ignore: terraform_unused_declarations
 variable "disabled_alerts" {
   description = "Specifies an array of alerts that are disabled. Allowed values are: Sql_Injection, Sql_Injection_Vulnerability, Access_Anomaly, Data_Exfiltration, Unsafe_Action."
   type        = list(any)
@@ -371,6 +373,7 @@ variable "threat_detection_policy_disabled_alerts" {
   default     = []
 }
 
+# tflint-ignore: terraform_unused_declarations
 variable "databases_extended_auditing_enabled" {
   description = "True to enable extended auditing for SQL databases"
   type        = bool
@@ -395,6 +398,7 @@ variable "enable_sql_vulnerability_assessment" {
   default     = false
 }
 
+# tflint-ignore: terraform_unused_declarations
 variable "sql_server_security_alerting_enabled" {
   description = "True to enable security alerting for this SQL Server"
   type        = bool
@@ -431,6 +435,7 @@ variable "security_storage_account_access_key" {
   default     = null
 }
 
+# tflint-ignore: terraform_unused_declarations
 variable "security_storage_account_container_name" {
   description = "Storage Account container name where to store SQL Server vulneralibility assessment"
   type        = string
