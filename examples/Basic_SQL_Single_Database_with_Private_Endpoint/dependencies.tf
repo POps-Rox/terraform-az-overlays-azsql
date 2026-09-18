@@ -6,7 +6,7 @@
 # Azure Region Lookup
 #----------------------------------------------------------
 module "mod_azure_region_lookup" {
-  source = "github.com/POps-Rox/terraform-az-overlays-azregionslookup?ref=v2.0.0"
+  source = "github.com/POps-Rox/terraform-az-overlays-azregionslookup"
 
   azure_region = "eastus"
 }
@@ -68,4 +68,3 @@ resource "azurerm_log_analytics_workspace" "sql-log" {
     environment = "test"
   }
 }
-

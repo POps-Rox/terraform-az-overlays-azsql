@@ -34,13 +34,13 @@ resource "azurerm_mssql_database" "single_database" {
   dynamic "threat_detection_policy" {
     for_each = var.enable_threat_detection_policy ? ["enabled"] : []
     content {
-      state                      = "Enabled"
-      email_account_admins       = "Enabled"
-      email_addresses            = var.alerting_email_addresses
-      retention_days             = var.threat_detection_policy_retention_days
-      disabled_alerts            = var.threat_detection_policy_disabled_alerts
-      storage_endpoint           = var.security_storage_account_blob_endpoint
-      storage_account_access_key = var.security_storage_account_access_key
+      state                        = "Enabled"
+      email_account_admins_enabled = true
+      email_addresses              = var.alerting_email_addresses
+      retention_days               = var.threat_detection_policy_retention_days
+      disabled_alerts              = var.threat_detection_policy_disabled_alerts
+      storage_endpoint             = var.security_storage_account_blob_endpoint
+      storage_account_access_key   = var.security_storage_account_access_key
     }
   }
 
@@ -95,13 +95,13 @@ resource "azurerm_mssql_database" "elastic_pool_database" {
   dynamic "threat_detection_policy" {
     for_each = var.enable_threat_detection_policy ? ["enabled"] : []
     content {
-      state                      = "Enabled"
-      email_account_admins       = "Enabled"
-      email_addresses            = var.alerting_email_addresses
-      retention_days             = var.threat_detection_policy_retention_days
-      disabled_alerts            = var.threat_detection_policy_disabled_alerts
-      storage_endpoint           = var.security_storage_account_blob_endpoint
-      storage_account_access_key = var.security_storage_account_access_key
+      state                        = "Enabled"
+      email_account_admins_enabled = true
+      email_addresses              = var.alerting_email_addresses
+      retention_days               = var.threat_detection_policy_retention_days
+      disabled_alerts              = var.threat_detection_policy_disabled_alerts
+      storage_endpoint             = var.security_storage_account_blob_endpoint
+      storage_account_access_key   = var.security_storage_account_access_key
     }
   }
 
