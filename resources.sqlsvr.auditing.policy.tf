@@ -31,7 +31,7 @@ resource "azurerm_storage_account" "storeacc" {
 resource "azurerm_storage_container" "storcont" {
   count                 = var.enable_sql_vulnerability_assessment ? 1 : 0
   name                  = "vulnerability-assessment"
-  storage_account_name  = azurerm_storage_account.storeacc[0].name
+  storage_account_id    = azurerm_storage_account.storeacc[0].id
   container_access_type = "private"
 }
 
@@ -42,7 +42,7 @@ resource "azurerm_storage_container" "storcont" {
 resource "azurerm_mssql_server_extended_auditing_policy" "primary" {
   count                                   = var.enable_sql_server_extended_auditing ? 1 : 0
   server_id                               = azurerm_mssql_server.primary_sql.id
-  storage_endpoint                        = azurerm_storage_account.storeacc[0].primary_blob_endpoint
+  blob_storage_endpoint                   = azurerm_storage_account.storeacc[0].primary_blob_endpoint
   storage_account_access_key              = azurerm_storage_account.storeacc[0].primary_access_key
   storage_account_access_key_is_secondary = false
   retention_in_days                       = var.log_retention_days
@@ -52,7 +52,7 @@ resource "azurerm_mssql_server_extended_auditing_policy" "primary" {
 resource "azurerm_mssql_server_extended_auditing_policy" "secondary" {
   count                                   = var.enable_sql_server_extended_auditing && var.enable_failover_group ? 1 : 0
   server_id                               = azurerm_mssql_server.secondary_sql[0].id
-  storage_endpoint                        = azurerm_storage_account.storeacc[0].primary_blob_endpoint
+  blob_storage_endpoint                   = azurerm_storage_account.storeacc[0].primary_blob_endpoint
   storage_account_access_key              = azurerm_storage_account.storeacc[0].primary_access_key
   storage_account_access_key_is_secondary = false
   retention_in_days                       = var.log_retention_days
@@ -64,29 +64,29 @@ resource "azurerm_mssql_server_extended_auditing_policy" "secondary" {
 #-----------------------------------------------------------------------------------------------
 
 resource "azurerm_mssql_server_security_alert_policy" "sap_primary" {
-  count                      = var.enable_sql_vulnerability_assessment ? 1 : 0
-  resource_group_name        = local.resource_group_name
-  server_name                = azurerm_mssql_server.primary_sql.name
-  state                      = "Enabled"
-  email_account_admins       = true
-  email_addresses            = var.email_addresses_for_alerts
-  retention_days             = var.sql_server_extended_auditing_retention_days
-  disabled_alerts            = []
-  storage_account_access_key = azurerm_storage_account.storeacc[0].primary_access_key
-  storage_endpoint           = azurerm_storage_account.storeacc[0].primary_blob_endpoint
+  count                        = var.enable_sql_vulnerability_assessment ? 1 : 0
+  resource_group_name          = local.resource_group_name
+  server_name                  = azurerm_mssql_server.primary_sql.name
+  state                        = "Enabled"
+  email_account_admins_enabled = true
+  email_addresses              = var.email_addresses_for_alerts
+  retention_days               = var.sql_server_extended_auditing_retention_days
+  disabled_alerts              = []
+  storage_account_access_key   = azurerm_storage_account.storeacc[0].primary_access_key
+  storage_endpoint             = azurerm_storage_account.storeacc[0].primary_blob_endpoint
 }
 
 resource "azurerm_mssql_server_security_alert_policy" "sap_secondary" {
-  count                      = var.enable_sql_vulnerability_assessment && var.enable_failover_group ? 1 : 0
-  resource_group_name        = local.resource_group_name
-  server_name                = azurerm_mssql_server.secondary_sql[0].name
-  state                      = "Enabled"
-  email_account_admins       = true
-  email_addresses            = var.email_addresses_for_alerts
-  retention_days             = var.sql_server_extended_auditing_retention_days
-  disabled_alerts            = []
-  storage_account_access_key = azurerm_storage_account.storeacc[0].primary_access_key
-  storage_endpoint           = azurerm_storage_account.storeacc[0].primary_blob_endpoint
+  count                        = var.enable_sql_vulnerability_assessment && var.enable_failover_group ? 1 : 0
+  resource_group_name          = local.resource_group_name
+  server_name                  = azurerm_mssql_server.secondary_sql[0].name
+  state                        = "Enabled"
+  email_account_admins_enabled = true
+  email_addresses              = var.email_addresses_for_alerts
+  retention_days               = var.sql_server_extended_auditing_retention_days
+  disabled_alerts              = []
+  storage_account_access_key   = azurerm_storage_account.storeacc[0].primary_access_key
+  storage_endpoint             = azurerm_storage_account.storeacc[0].primary_blob_endpoint
 }
 
 resource "azurerm_mssql_server_vulnerability_assessment" "va_primary" {
@@ -123,7 +123,7 @@ resource "azurerm_mssql_database_extended_auditing_policy" "elastic_pool_db" {
   for_each = var.enable_database_extended_auditing_policy ? try({ for db in var.databases : db.name => db if var.enable_elastic_pool == true }, {}) : {}
 
   database_id                             = azurerm_mssql_database.elastic_pool_database[each.key].id
-  storage_endpoint                        = var.security_storage_account_blob_endpoint
+  blob_storage_endpoint                   = var.security_storage_account_blob_endpoint
   storage_account_access_key              = var.security_storage_account_access_key
   storage_account_access_key_is_secondary = false
   retention_in_days                       = var.databases_extended_auditing_retention_days
@@ -133,7 +133,7 @@ resource "azurerm_mssql_database_extended_auditing_policy" "single_db" {
   for_each = var.enable_database_extended_auditing_policy ? try({ for db in var.databases : db.name => db if var.enable_elastic_pool == false }, {}) : {}
 
   database_id                             = azurerm_mssql_database.single_database[each.key].id
-  storage_endpoint                        = var.security_storage_account_blob_endpoint
+  blob_storage_endpoint                   = var.security_storage_account_blob_endpoint
   storage_account_access_key              = var.security_storage_account_access_key
   storage_account_access_key_is_secondary = false
   retention_in_days                       = var.databases_extended_auditing_retention_days
